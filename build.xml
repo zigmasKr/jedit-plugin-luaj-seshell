@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<project name="LuaJSEShell" default="package" basedir=".">
+
+	<description>
+		Builds the LuaJSEShell plugin using the required build-support plugin-build.xml
+	</description>
+	 
+	<!--
+	conditional on the operating system
+	https://alvinalexander.com/blog/post/java/how-conditional-operation-ant-script-operating-system
+	-->
+	<!-- <echo message="${os.name}" /> -->
+	<condition property="os.nickname" value="win">
+		<os family="windows" />
+	</condition>
+	<condition property="os.nickname" value="lin">
+		<os family="unix" />
+	</condition>
+	<condition property="os.nickname" value="mac">
+		<os family="mac" />
+	</condition>
+	<!-- <echo message="os nickname is ${os.nickname}"/> -->
+
+	<property file="build-${os.nickname}.properties" />
+	<!--
+	<property file="build.properties" />
+	<property file="../build.properties" />
+	-->
+	
+	<property name="compiler.source"		value="1.8" />
+	<property name="compiler.target" 		value="1.8" />
+	<property name="src.dir" value="src" />
+	
+	<!-- Documentation process
+	none: if you supply your own html file as this template does.
+	<property name="docs-proc.target"       value="none" />
+	xsltproc: if you plan on using docbook
+	-->
+	<property name="docs-proc.target" value="xsltproc" />
+	<property name="plugin.version" value="1.0.0" />
+		
+	<!-- <property name="javadoc.packagenames"	value="luaj.seshell.*" /> -->
+	<!-- <property name="build.support" value="build-support" /> -->
+	
+	<import file="${build.support}/plugin-build.xml" />
+
+	<property name="jedit.plugins.dir" value="${jedit.install.dir}/jars"/>
+	<property name="jedit.user.plugins.dir" value="${jedit.user.home}/jars"/>
+
+	<!-- Extra files that get put into the jar file, 
+	above and beyond the default set (which always 
+	includes actions, dockables,services.xml, *.props, etc 
+	-->
+	<!--
+	<selector id="packageFiles">
+		<or>
+			<filename name="luaj/seshell/luaj/*.*" />
+			<filename name="docs/*.html" />
+		</or>
+	</selector>
+	-->
+
+	<path id="project.class.path">
+		<pathelement location="${jedit.plugins.dir}/Console.jar"/>
+		<pathelement path="${jedit.plugins.dir}/ProcessShell.jar" />
+		<pathelement path="${jedit.plugins.dir}/LuaJPlugin.jar" />
+		<pathelement path="${jedit.plugins.dir}/Classpath.jar" />
+	</path>
+
+</project>

@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE ACTIONS SYSTEM "actions.dtd">
+<ACTIONS>
+	<ACTION NAME="open-LuaJSE-shell">
+		<CODE>
+			wm.addDockableWindow("console");
+			dockable = wm.getDockableWindow("console");
+			dockable.setShell("LuaJ SE");
+		</CODE>
+	</ACTION>
+	<ACTION NAME="luaj.seshell.eval-selection">
+		<CODE>
+			luaj.seshell.LuaJSEShell.evalSelection();
+		</CODE>
+	</ACTION>
+	<ACTION NAME="luaj.seshell.eval-buffer">
+		<CODE>
+			luaj.seshell.LuaJSEShell.evalBuffer();
+		</CODE>
+	</ACTION>
+	<ACTION NAME="luaj.seshell.eval-file">
+		<CODE>
+			dialog = new VFSFileChooserDialog(view, buffer.getDirectory(),
+				VFSBrowser.OPEN_DIALOG, false, true);
+			files = dialog.getSelectedFiles();
+			if (files != null) {
+				luaj.seshell.LuaJSEShell.evalFile(files[0]);
+			}
+		</CODE>
+	</ACTION>
+</ACTIONS>
