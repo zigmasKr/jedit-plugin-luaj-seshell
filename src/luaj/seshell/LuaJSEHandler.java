@@ -24,23 +24,36 @@ package luaj.seshell;
 import org.gjt.sp.jedit.*;
 import org.gjt.sp.util.Log;
 import org.gjt.sp.jedit.Macros.*;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
 //}}}
 
 public class LuaJSEHandler extends Handler {
 
 	//{{{ LuaJSEHandler constructors
 	public LuaJSEHandler(String name) {
-		super("LuaJSEHandler");
+		super(name);
 	}//}}}
 
-	//{{ accept method
+	//{{{ accept method
 	public boolean accept(String path) {
 		return path.endsWith(".lua");
 	}//}}}
 
+	//{{{
+	public String macroNameShort(String pathStr) {
+		Path path = Paths.get(pathStr);
+		String fname = path.getFileName().toString();
+		fname = fname.replaceAll("_", " ");
+		return fname.substring(0, fname.length() - 4);
+	}
+	//}}}
+
 	//{{{ creatMacro method
 	public Macro createMacro(String macroName, String path) {
-		String name = path.substring(0, path.length() - 4);
+		//String name = path.substring(0, path.length() - 4);
+		String name = macroNameShort(path);
 		return new Macro(this,
 						name,
 						Macro.macroNameToLabel(name),

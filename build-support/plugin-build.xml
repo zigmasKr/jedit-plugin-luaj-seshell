@@ -401,6 +401,8 @@
 			<filterset>
 				<filter token="docs.style.sheet"
 						value="${docs.style.sheet}" />
+			<filter token="plugin.version"
+						value="${plugin.version}" />
 			</filterset>
 		</copy>
 		<antcall target="docs-${docs-proc.target}" />

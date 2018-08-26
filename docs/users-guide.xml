@@ -38,14 +38,6 @@
 			<!-- manually stopped and restarted. -->
 		</para>
 	</chapter>
-	<!--
-	<chapter id="stop-restart"><title>Stopping and Restarting</title>
-		<para>
-			To stop the loop, click on the Stop button in the Console dockable. After it's stopped,
-			hit Enter to start it back up again. Restarting can be used to reset the environment,
-			or you can simply stop the loop to conserve system resources.
-		</para>
-	-->
 	<chapter id="global-variables"><title>Global Variables</title>
 		<para>
 		LuaJ-SE Shell Plugin provides the same global variables as the JavaScriptShell Plugin.
@@ -101,19 +93,22 @@
 	<chapter id="macros-scripts"><title>Macros and Scripting</title>
 		<para>
 			jEdit macros in LuaJ are LuaJ scripts with file name extension <emphasis>lua</emphasis>, placed in the jEdit's settings
-			or home subdirectory <emphasis>/macros</emphasis>. Macros are visible in the <emphasis>Macros</emphasis> menu when LuaJ-SE Shell
+			or home subfolder <emphasis>macros/</emphasis>. Macros are visible in the <emphasis>Macros</emphasis> menu when LuaJ-SE Shell
 			plugin is started and macros are <emphasis>rescanned</emphasis> (in <emphasis>Macros</emphasis> menu).
 		</para>
-		<para>
-			The following code can be saved as a sample macro in LuaJ:
-			<programlisting>
-	view:splitHorizontally()
-			</programlisting>
-		</para>
+		<para>The following code can be saved as a sample macro in LuaJ:
+			<programlisting>view:splitHorizontally()</programlisting></para>
 		<para>
 		After the LuaJ-SE Shell plugin is started, via the plugin's menu item
 		<emphasis>Load startup script(s)</emphasis> one can load so-called start-up script(s)
 		where some handy functions are collected.
+		</para>
+		<para>
+		A sample macro View_Split.lua and a sample startup script startup-luaj-se.lua are
+		included into LuaJSEShell.jar under subfolder <emphasis>addons/</emphasis>.
+		</para>
+		<para>
+		It is convenient to collect LuaJ macros in the dedicated subfolder.
 		</para>
 	</chapter>
 	<chapter id="contacts"><title>Contacts</title>
