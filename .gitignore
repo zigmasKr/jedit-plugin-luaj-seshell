@@ -13,6 +13,7 @@
 # [sandbox]/* and [var]/* etc files
 0/**
 00java-test/**
+\[books\]/**
 \[sandbox\]/**
 \[debug\]/**
 \[texts\]/**
