@@ -28,7 +28,7 @@ public class LuaJSEShellPlugin extends EditPlugin {
 	public LuaJSEShellPlugin() {
 		super();
 		LuaJSEShell.init();
-		Macros.registerHandler(new LuaJSEHandler("LuaJSE"));
+		Macros.registerHandler(new LuaJSEHandler("LuaJSEHandler"));
 	}
 }
 

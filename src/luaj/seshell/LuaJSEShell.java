@@ -29,6 +29,7 @@ import console.*;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FilenameFilter;
 import java.io.FileReader;
 import java.io.PrintWriter;
 
@@ -82,7 +83,6 @@ public class LuaJSEShell extends Shell {
 			Log.log(Log.DEBUG, LuaJSEShell.class, "LuaJ: script engine: " + engineLuaJ.toString());
 			engineLuaJ.setBindings(new SimpleBindings(), ScriptContext.ENGINE_SCOPE);
 			engineLuaJ.put("engine", engineLuaJ);
-			// [AWT-EventQueue-0] [debug] PluginJAR: Opening C:\Users\Zigmas\AppData\Roaming\jEdit\jars\luaj-jse-3.0.1.jar
 			// [AWT-EventQueue-0] [debug] LuaJSEShell: LuaJ: scriptManager: javax.script.ScriptEngineManager@135848f
 			// [AWT-EventQueue-0] [debug] LuaJSEShell: LuaJ: script engine: org.luaj.vm2.script.LuaScriptEngine@118a0cf
 		} else {
@@ -235,7 +235,6 @@ public class LuaJSEShell extends Shell {
 
 	/** Evaluate the contents of selected text in the current buffer.  */
 	public static void evalSelection() {
-
 		View      view          = jEdit.getActiveView();
 		TextArea  textArea      = view.getTextArea();
 		String    selectedText  = textArea.getSelectedText();
@@ -262,7 +261,6 @@ public class LuaJSEShell extends Shell {
 			} else {
 				retVal = retVal.toString();
 			}
-			//textArea.setSelectedText(result.out.toString() + retVal);
 			engineOutput = result.out.toString() + retVal;
 			console.print(console.getInfoColor(), "\nLuaJ engine output: ");
 			console.print(console.getPlainColor(), engineOutput);
@@ -316,7 +314,6 @@ public class LuaJSEShell extends Shell {
 				} else {
 					retVal = retVal.toString();
 				}
-				//textArea.setSelectedText(result.out.toString() + retVal);
 				engineOutput = result.out.toString() + retVal;
 				console.print(console.getInfoColor(), "\nLuaJ engine output: ");
 				console.print(console.getPlainColor(), engineOutput);
@@ -328,36 +325,36 @@ public class LuaJSEShell extends Shell {
 			}
 		}
 	}//}}}
-	
-	//{{{ evalFile() method
+
+	//{{{ evalSCript() method
 
 	/**
-	 * Evaluate the entire contents of the file.
+	 * Evaluate the entire contents of the script (file).
 	 * A substitution for the method runScript (removed from this code).
 	 *
-	 * Apparently, ss a LuaJ code chunk returns some LuaJValue, 
-	 * the RetVal abstraction is good for inserting .toString() 
+	 * Apparently, ss a LuaJ code chunk returns some LuaJValue,
+	 * the RetVal abstraction is good for inserting .toString()
 	 * where applicable to get a printable output.
 	 */
-	public static void evalFile(String path) {
+	public static void evalScript(String path) {
 		View  view  = jEdit.getActiveView();
-		evalFile(path, view, true);
+		evalScript(path, view, true);
 	}
 
 	/**
-	 * Evaluate the entire contents of the file.
+	 * Evaluate the entire contents of the script (file).
 	 *
 	 * Optionally show the output in a dialog box.
 	 *
 	 * @param view        Description of the Parameter
 	 * @param showOutput  true if output is to be shown in a dialog.
 	 */
-	public static void evalFile(String path, View view, boolean showOutput) {
+	public static void evalScript(String path, View view, boolean showOutput) {
 		String fileText;
-		String engineOutput;
 		// console, where the engine output will be printed:
 		Console console = ConsolePlugin.getConsole(view);
-		
+		String engineOutput;
+
 		File file = new File(path);
 		if (file.exists()) {
 			try {
@@ -369,13 +366,14 @@ public class LuaJSEShell extends Shell {
 					code.append(line + "\n");
 				}
 				fileText = code.toString();
-				
+
 				if (fileText == null) {
 					view.getToolkit().beep();
 				} else {
+
 					RetVal result = evalCode(view, fileText, true);
+
 					if (showOutput) {
-						
 						if (result.error) {
 							view.getToolkit().beep();
 							engineOutput = result.out.toString();
@@ -389,7 +387,6 @@ public class LuaJSEShell extends Shell {
 						} else {
 							retVal = retVal.toString();
 						}
-						
 						engineOutput = result.out.toString() + retVal;
 						console.print(console.getInfoColor(), "\nLuaJ engine output: ");
 						console.print(console.getPlainColor(), engineOutput);
@@ -406,7 +403,45 @@ public class LuaJSEShell extends Shell {
 		}
 	}
 	//}}}
-	
+
+	//{{{ evalStartup() method
+	/**
+	 * Evaluates LuaJ scripts in the startup folder.
+	 * @param view       the jEdit view from which this method was invoked.
+	 */
+	public static void evalStartup(View view) {
+		String strSettings = MiscUtilities.constructPath(jEdit.getSettingsDirectory(), "startup/");
+		File startupSett = new File(strSettings);
+		File [] scripts;
+		String strHome = MiscUtilities.constructPath(jEdit.getJEditHome(), "startup/");
+		File startupHome = new File(strHome);
+
+		scripts = startupSett.listFiles(new FilenameFilter() {
+				@Override
+				public boolean accept(File dir, String name) {
+					return name.endsWith(".lua");
+				}
+		});
+		for (File script : scripts) {
+			String scriptPath = script.getAbsolutePath();
+			evalScript(scriptPath);
+			Log.log(Log.DEBUG, LuaJSEShell.class, "LuaJ script loaded: " + scriptPath);
+		}
+
+		scripts = startupHome.listFiles(new FilenameFilter() {
+				@Override
+				public boolean accept(File dir, String name) {
+					return name.endsWith(".lua");
+				}
+		});
+		for (File script : scripts) {
+			String scriptPath = script.getAbsolutePath();
+			evalScript(scriptPath);
+			Log.log(Log.DEBUG, LuaJSEShell.class, "LuaJ script loaded: " + scriptPath);
+		}
+
+	} //}}}
+
 	//{{{ evalCode() method
 	/**
 	 * Evaluate LuaJ code, collect output and return the result.

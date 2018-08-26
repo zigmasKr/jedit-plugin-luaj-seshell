@@ -30,7 +30,7 @@ public class LuaJSEHandler extends Handler {
 
 	//{{{ LuaJSEHandler constructors
 	public LuaJSEHandler(String name) {
-		super("LuaJSE");
+		super("LuaJSEHandler");
 	}//}}}
 
 	//{{ accept method
@@ -50,8 +50,8 @@ public class LuaJSEHandler extends Handler {
 	//{{{ runMacro method
 	public void runMacro(View view, Macro macro) {
 		Log.log(Log.DEBUG, this, "runMacro " + macro.getPath());
-		// here comes the method from LuaJSEShell for evaluating file (script):
-		LuaJSEShell.evalFile(macro.getPath());
+		// here comes the method from LuaJSEShell for evaluating script (file):
+		LuaJSEShell.evalScript(macro.getPath());
 	}//}}}
 
 	//{{{ evalCode method

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE SERVICES SYSTEM "services.dtd">
 <SERVICES>
-	<SERVICE CLASS="console.Shell" NAME="LuaJ SE">
-		new luaj.seshell.LuaJSEShell("LuaJSE");
+	<SERVICE CLASS="console.Shell" NAME="LuaJ-SE">
+		new luaj.seshell.LuaJSEShell("LuaJ-SE");
 	</SERVICE>
 </SERVICES>

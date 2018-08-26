@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <book>
 	<bookinfo>
-		<title>LuaJ Scripting Engine Shell</title>
+		<title>LuaJ - Scripting Engine Shell</title>
 		<author>
 			<firstname>Zigmantas</firstname><surname>Kry&#382;ius</surname>
 		</author>
@@ -9,14 +9,14 @@
 	<chapter id="overview"><title>Overview</title>
 		<para>
 			To use the plugin, first start it from Plugins menu or open up the Console
-			dockable and select the LuaJ SE shell (LuaJ Scripting Engine).
+			dockable and select the LuaJ-SE shell (LuaJ - Scripting Engine).
 			Once selected, it will attempt to start up the Read-Eval-Print-Loop, and if successful,
-			the LuaJ SE prompt will be displayed. If not successful, the LuaJ plugin
+			the LuaJ-SE prompt will be displayed. If not successful, the LuaJ plugin
 			may need to be configured. Refer to that plugin's documentation for information
 			on how to configure it.
 		</para>
 		<para>
-		The LuaJ SE Shell plugin adds to jEdit the LuaJ script handler so you
+		The LuaJ-SE Shell plugin adds to jEdit the LuaJ script handler so you
 		can write macros and startup scripts in LuaJ. The console interface to the LuaJ script
 		engine shell can be useful for creating and testing jEdit macros in LuaJ.
 		</para>
@@ -28,13 +28,14 @@
 			code without having to manually copy and paste it.
 		</para>
 		<para>
-			These actions can be found in the menu Plugins -> LuaJ SE Shell. Using these actions, you can
+			These actions can be found in the menu Plugins -> LuaJ-SE Shell. Using these actions, you can
 			use the shell to evaluate the active buffer, any selected text within that buffer,
 			or an external LuaJ script.
 		</para>
 		<para>
 			Any variables or functions defined in the shell will persist until the loop is
-			manually stopped and restarted.
+			terminated.
+			<!-- manually stopped and restarted. -->
 		</para>
 	</chapter>
 	<!--
@@ -47,7 +48,7 @@
 	-->
 	<chapter id="global-variables"><title>Global Variables</title>
 		<para>
-		LuaJ SE Shell Plugin provides the same global variables as the JavaScriptShell Plugin.
+		LuaJ-SE Shell Plugin provides the same global variables as the JavaScriptShell Plugin.
 		<itemizedlist>
 		<listitem>
 		<para>
@@ -99,19 +100,24 @@
 	</chapter>
 	<chapter id="macros-scripts"><title>Macros and Scripting</title>
 		<para>
-			jEdit macros in LuaJ are LuaJ scripts with file name extension <emphasis>lua</emphasis>, placed in the jEdit's settings 
-			or home subdirectory <emphasis>/macros</emphasis>. Macros are visible in the <emphasis>Macros</emphasis> menu when LuaJ SE Shell
+			jEdit macros in LuaJ are LuaJ scripts with file name extension <emphasis>lua</emphasis>, placed in the jEdit's settings
+			or home subdirectory <emphasis>/macros</emphasis>. Macros are visible in the <emphasis>Macros</emphasis> menu when LuaJ-SE Shell
 			plugin is started and macros are <emphasis>rescanned</emphasis> (in <emphasis>Macros</emphasis> menu).
 		</para>
 		<para>
 			The following code can be saved as a sample macro in LuaJ:
 			<programlisting>
-			view:splitHorizontally()
+	view:splitHorizontally()
 			</programlisting>
+		</para>
+		<para>
+		After the LuaJ-SE Shell plugin is started, via the plugin's menu item
+		<emphasis>Load startup script(s)</emphasis> one can load so-called start-up script(s)
+		where some handy functions are collected.
 		</para>
 	</chapter>
 	<chapter id="contacts"><title>Contacts</title>
-		<para> 
+		<para>
 			Author's contact: <email id="email">zigmas.kr@gmail.com</email>.
 		</para>
 	</chapter>

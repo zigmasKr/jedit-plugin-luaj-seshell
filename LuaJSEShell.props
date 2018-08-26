@@ -1,7 +1,7 @@
-plugin.luaj.seshell.LuaJSEShellPlugin.name=LuaJ SE Shell
+plugin.luaj.seshell.LuaJSEShellPlugin.name=LuaJ-SE Shell
 plugin.luaj.seshell.LuaJSEShellPlugin.author=Zigmantas Kryzius
 plugin.luaj.seshell.LuaJSEShellPlugin.description=\
-		Provides an interactive LuaJ SE (scripting engine) console and allows macros \
+		Provides an interactive LuaJ - Scripting Engine (LuaJ-SE) console and allows macros \
 		and startup scripts to be written in LuaJ.
 plugin.luaj.seshell.LuaJSEShellPlugin.version=1.0.0
 plugin.luaj.seshell.LuaJSEShellPlugin.docs=docs/index.html
@@ -12,26 +12,27 @@ plugin.luaj.seshell.LuaJSEShellPlugin.depend.1=jdk 1.8
 plugin.luaj.seshell.LuaJSEShellPlugin.depend.2=plugin console.ConsolePlugin 4.3.3
 plugin.luaj.seshell.LuaJSEShellPlugin.depend.3=plugin luaj.LuaJPlugin 1.0.0
 
-macro-handler.LuaJSE.label=LuaJSE
-macro-handler.LuaJSE.glob=*.lua
+macro-handler.LuaJSEHandler.label=LuaJSEHandler
+macro-handler.LuaJSEHandler.glob=*.lua
 
 luaj-error.title=LuaJ Error
 luaj-error.message=A LuaJ error occurred.
 
-console.shell.LuaJSE-show.label=LuaJ SE Shell
-open-LuaJSE-shell.label=Open LuaJ SE Shell
+console.shell.LuaJ-SE-show.label=LuaJ-SE
 
 luaj.seshell.info.toggle=true
 luaj.seshell.info=LuaJ 3.0.1: scripting engine.
 
 luaj.seshell.prompt=LuaJ=>
 
-luaj.seshell.eval-selection.label=Evaluate selection in LuaJ SE
-luaj.seshell.eval-buffer.label=Evaluate buffer in LuaJ SE
-luaj.seshell.eval-file.label=Evaluate file in LuaJ SE
+luaj.seshell.eval-selection.label=Evaluate selection in LuaJ-SE
+luaj.seshell.eval-buffer.label=Evaluate buffer in LuaJ-SE
+luaj.seshell.eval-script.label=Evaluate script in LuaJ-SE
+luaj.seshell.eval-startup.label=Load startup file(s)
 
-plugin.luaj.seshell.LuaJSEShellPlugin.menu=open-LuaJSE-shell - \
+plugin.luaj.seshell.LuaJSEShellPlugin.menu=console.shell.LuaJ-SE-show - \
 	luaj.seshell.eval-selection \
 	luaj.seshell.eval-buffer \
-	luaj.seshell.eval-file
+	luaj.seshell.eval-script - \
+	luaj.seshell.eval-startup
 
