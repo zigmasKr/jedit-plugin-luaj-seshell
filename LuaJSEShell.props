@@ -18,7 +18,7 @@ macro-handler.LuaJSEHandler.glob=*.lua
 luaj-error.title=LuaJ Error
 luaj-error.message=A LuaJ error occurred.
 
-console.shell.LuaJ-SE-show.label=LuaJ-SE
+console.shell.LuaJ-SE-show.label=LuaJ-SE Shell
 
 luaj.seshell.info.toggle=true
 luaj.seshell.info=LuaJ 3.0.1: scripting engine.
@@ -27,7 +27,7 @@ luaj.seshell.prompt=LuaJ=>
 
 luaj.seshell.eval-selection.label=Evaluate selection in LuaJ-SE
 luaj.seshell.eval-buffer.label=Evaluate buffer in LuaJ-SE
-luaj.seshell.eval-script.label=Evaluate script in LuaJ-SE
+luaj.seshell.eval-script.label=Evaluate file in LuaJ-SE
 luaj.seshell.eval-startup.label=Load startup file(s)
 
 plugin.luaj.seshell.LuaJSEShellPlugin.menu=console.shell.LuaJ-SE-show - \

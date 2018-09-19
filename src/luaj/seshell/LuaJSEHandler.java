@@ -42,21 +42,21 @@ public class LuaJSEHandler extends Handler {
 	}//}}}
 
 	//{{{
-	public String macroNameShort(String pathStr) {
-		Path path = Paths.get(pathStr);
+	public String macroLongNameToLabel(String name) {
+		Path path = Paths.get(name);
 		String fname = path.getFileName().toString();
-		fname = fname.replaceAll("_", " ");
-		return fname.substring(0, fname.length() - 4);
+		return fname.replaceAll("_", " ");
 	}
 	//}}}
 
 	//{{{ creatMacro method
 	public Macro createMacro(String macroName, String path) {
-		//String name = path.substring(0, path.length() - 4);
-		String name = macroNameShort(path);
+		// remove .lua, get "long name"
+		String name = macroName.substring(0, macroName.length() - 4);
 		return new Macro(this,
 						name,
-						Macro.macroNameToLabel(name),
+						//Macro.macroNameToLabel(name),
+						macroLongNameToLabel(name),
 						path);
 	}//}}}
 
