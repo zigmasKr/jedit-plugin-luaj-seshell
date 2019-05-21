@@ -28,11 +28,13 @@ luaj.seshell.prompt=LuaJ=>
 luaj.seshell.eval-selection.label=Evaluate selection in LuaJ-SE
 luaj.seshell.eval-buffer.label=Evaluate buffer in LuaJ-SE
 luaj.seshell.eval-script.label=Evaluate file in LuaJ-SE
+luaj.seshell.print-selection.label=Print selection in LuaJ-SE
 luaj.seshell.eval-startup.label=Load startup file(s)
 
 plugin.luaj.seshell.LuaJSEShellPlugin.menu=console.shell.LuaJ-SE-show - \
 	luaj.seshell.eval-selection \
 	luaj.seshell.eval-buffer \
-	luaj.seshell.eval-script - \
+	luaj.seshell.eval-script \
+	luaj.seshell.print-selection - \
 	luaj.seshell.eval-startup
 

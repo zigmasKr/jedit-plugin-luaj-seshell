@@ -33,6 +33,13 @@
 			or an external LuaJ script.
 		</para>
 		<para>
+			The plugin also provides these possibilities: (1) if the selected piece of code starts with "=", possibly followed by 
+			space(s), then "=" with space(s) is removed and the remaining code is enclosed in "print(...)" and sent for evaluation;
+			(2) the same is valid for piece of code put into REPL; (3) there is the action 
+			<emphasis>Print selection in LuaJ-SE</emphasis> which sends for evaluation 
+			<code>print([any code])</code> where <code>[any code]</code> is the selected piece of code. 		
+		</para>
+		<para>
 			Any variables or functions defined in the shell will persist until the loop is
 			terminated.
 			<!-- manually stopped and restarted. -->

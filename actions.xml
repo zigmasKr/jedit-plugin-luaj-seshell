@@ -6,6 +6,11 @@
 			luaj.seshell.LuaJSEShell.evalSelection();
 		</CODE>
 	</ACTION>
+	<ACTION NAME="luaj.seshell.print-selection">
+		<CODE>
+			luaj.seshell.LuaJSEShell.printSelection();
+		</CODE>
+	</ACTION>
 	<ACTION NAME="luaj.seshell.eval-buffer">
 		<CODE>
 			luaj.seshell.LuaJSEShell.evalBuffer();

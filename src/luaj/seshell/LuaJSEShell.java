@@ -44,9 +44,6 @@ import org.gjt.sp.jedit.textarea.TextArea;
 import org.gjt.sp.util.Log;
 import java.awt.Color;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import org.luaj.vm2.script.*;
 
 //}}}
@@ -110,7 +107,8 @@ public class LuaJSEShell extends Shell {
 	 */
 	public void execute(Console console, String input, Output output, Output error,
 			String command) {
-
+	
+		command = startsEqualityS(command);
 		if (command == null || command.equals("")) {
 			output.commandDone();
 			return;
@@ -241,6 +239,8 @@ public class LuaJSEShell extends Shell {
 		// console, where the engine output will be printed:
 		Console   console       = ConsolePlugin.getConsole(view);
 		String    engineOutput;
+		
+		selectedText = startsEqualityS(selectedText);
 
 		if (selectedText == null) {
 			view.getToolkit().beep();
@@ -263,6 +263,48 @@ public class LuaJSEShell extends Shell {
 			}
 			engineOutput = result.out.toString() + retVal;
 			console.print(console.getInfoColor(), "\nLuaJ engine output: ");
+			console.print(console.getPlainColor(), engineOutput);
+
+			String  prompt  = //"\n" +
+				jEdit.getProperty("luaj.seshell.prompt", "LuaJ");
+			console.getOutput().writeAttrs(ConsolePane.colorAttributes(Color.blue), prompt);
+			console.getOutput().writeAttrs(ConsolePane.colorAttributes(console.getPlainColor()), " ");
+		}
+	}//}}}
+	
+	//{{{ printSelection() method
+
+	/** Wraps into print statement the contents of selected text in the current buffer.  */
+	public static void printSelection() {
+		View      view          = jEdit.getActiveView();
+		TextArea  textArea      = view.getTextArea();
+		String    selectedText  = textArea.getSelectedText();
+		// console, where the engine output will be printed:
+		Console   console       = ConsolePlugin.getConsole(view);
+		String    engineOutput;
+
+		if (selectedText == null) {
+			view.getToolkit().beep();
+		} else {
+			
+			selectedText = "print(" + selectedText + ")";
+			RetVal  result  = evalCode(view, selectedText, true);
+
+			if (result.error) {
+				view.getToolkit().beep();
+				engineOutput = result.out.toString();
+				console.print(console.getErrorColor(), "\nLuaJ engine error: ");
+				console.print(console.getErrorColor(), engineOutput);
+				return;
+			}
+			Object  retVal  = result.retVal;
+			if (retVal == null) {
+				retVal = "";
+			} else {
+				retVal = retVal.toString();
+			}
+			engineOutput = result.out.toString() + retVal;
+			console.print(console.getInfoColor(), "\nLuaJ engine print output: ");
 			console.print(console.getPlainColor(), engineOutput);
 
 			String  prompt  = //"\n" +
@@ -467,6 +509,8 @@ public class LuaJSEShell extends Shell {
 
 		StringOutput  output  = new StringOutput();
 		Object        retVal  = null;
+		
+		//command = startsEqualityC(command);
 
 		if (command == null || command.equals("")) {
 			return new RetVal("", "");
@@ -535,6 +579,22 @@ public class LuaJSEShell extends Shell {
 			this.errorShown = errorShown;
 		}
 	}//}}}
+	
+	//{{{ startsEqualityS 
+	protected static String startsEqualityS(String code) {
+		boolean isEq = false;
+		while ((code.charAt(0) == 32) || (code.charAt(0) == 61)) {
+			if (code.charAt(0) == 61) {
+				isEq = true;
+			}
+			code = code.substring(1);
+		}
+		if (isEq) {
+			code = "print(" + code + ")";
+		}
+		return code;
+	} 
+	//}}}
 }
 
 /*
